@@ -1,0 +1,201 @@
+﻿@using DanderiNetwork.Core.Application.ViewModels.User
+@model SaveUserViewModel
+
+@{
+	ViewData["Tittle"] = "Login";
+}
+
+<div class="container probanding">
+
+	<div class="row popo d-flex justify-content-center align-items-center">
+
+		<div class="col-lg-7 col-md-2 col-sm-1">
+			<img src="/images/app/Group 472.png" class="homeImage" alt="Alternate Text" />
+		</div>
+
+		@if (ViewBag.ErrorState != null && ViewBag.ErrorState == true)
+		{
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<p>@ViewBag.ErrorStateMessage</p>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		}
+
+		<div class="col-lg-5 col-md-10 col-sm-12">
+			<div class="card loginCard">
+				<div class="mt-5 mb-4 text-center fw-bold highlighted fs-3">
+					Login
+				</div>
+				<div class="card-body">
+					<form method="post" asp-controller="User" asp-action="Index">
+						<div class="mb-4 d-flex justify-content-center">
+							<div class="col-9">
+								<label for="Username" class="form-label fw-bold">Username</label>
+								<input type="text" class="form-control inputCustomize" id="username" name="Username">
+							</div>
+						</div>
+						<div class="mb-3 d-flex justify-content-center">
+							<div class="col-9">
+								<label for="password" class="form-label fw-bold">Password</label>
+								<input type="password" class="form-control inputCustomize" id="password" name="password">
+							</div>
+						</div>
+
+						@if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+						{
+							<div class="mb-3 d-flex justify-content-center">
+								<div class="col-9">
+									<span class="text-danger">@ViewBag.ErrorMessage</span>
+								</div>
+							</div>
+						}
+						<div class="mb-4 d-flex justify-content-center">
+							<div class="col-9 d-flex justify-content-end">
+								<a href="#" class="highlighted text-decoration-none" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Forgot password?</a>
+							</div>
+						</div>
+
+						<div class="mb-4 d-flex justify-content-center">
+							<div class="col-9">
+								<button type="submit" class="btn w-100 btn-light loginBTN">Login</button>
+							</div>
+						</div>
+					</form>
+					<div class="mb-5 d-flex justify-content-center">
+						<div class="col-9">
+							<p>Don't have an account? <a href="#" class="highlighted text-decoration-none" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign Up</a></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<!-- Modal - Reset Password -->
+	<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="modal-tittle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered ">
+			<div class="modal-content loginCard modalReset">
+				<div class="modal-header border-0">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<h1 class="modal-title w-100 text-center fs-5 highlighted fw-bold mb-3" id="modal-tittle">Reset password</h1>
+					<div class="d-flex justify-content-center">
+						<p class="policyTextSignUp col-8 text-center">
+							Enter your username and we will send you an email with a new password to get back to your account.
+						</p>
+					</div>
+					<form method="post" asp-action="ForgotPassword" asp-controller="User">
+						<div class="mb-4 d-flex justify-content-center">
+							<div class="col-8">
+								<label for="Username" class="form-label fw-bold">Username</label>
+								<input type="text" class="form-control inputCustomize" id="Username" name="Username">
+								<span class="text-danger">@ViewBag.ForgotError</span>
+							</div>
+						</div>
+
+						<div class="d-flex justify-content-center">
+							<div class="col-8">
+								<button type="submit" class="btn btn-light w-100 loginBTN">Reset password</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer border-0">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal - Sign Up -->
+	<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="modal-tittle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content loginCard modalReset modalSignUp">
+				<div class="modal-header border-0">
+					<h1 class="mt-2 modal-title w-100 text-center fs-5 highlighted fw-bold" id="modal-tittle">Sign Up</h1>
+					<button type="button" class="btn-close col-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="post" enctype="multipart/form-data" asp-controller="User" id="formularioSignUp" asp-action="Register">
+						<div class="mb-4 d-flex justify-content-center">
+							<div class="col-8">
+								<div class="mb-3">
+									<label asp-for="FirstName" class="form-label fw-bold">First name</label>
+									<input asp-for="FirstName" class="form-control inputCustomize">
+									<span asp-validation-for="FirstName" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="LastName" class="form-label fw-bold">Last name</label>
+									<input asp-for="LastName" class="form-control inputCustomize">
+									<span asp-validation-for="LastName" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="UserName" class="form-label fw-bold">Username</label>
+									<div class="input-group">
+										<span class="input-group-text leftInputDesign">@@</span>
+										<input asp-for="UserName" class="form-control anotherDesign">
+									</div>
+									<span asp-validation-for="UserName" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="Phone" class="form-label fw-bold">Phone number</label>
+									<input oninput="formatInputPhoneNumber(this)" maxlength="12" asp-for="Phone" class="form-control inputCustomize">
+									<span asp-validation-for="Phone" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="Email" class="form-label fw-bold">Email</label>
+									<input asp-for="Email" class="form-control inputCustomize">
+									<span asp-validation-for="Email" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="Photo" class="form-label fw-bold">Select image:</label>
+									<input required asp-for="Photo" class="form-control anotherDesign">
+									<span asp-validation-for="Photo" class="text-danger"></span>
+								</div>
+
+								<div class="mb-3">
+									<label asp-for="Password" class="form-label fw-bold me-2">Password</label>
+									<span href="#" id="chuleria" class="text-secondary" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="right" data-bs-title="Must contain one uppercase character, one lowercase character, one digit and one non-alphanumeric character. At least six characters long.">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#A7A9AD" class="bi bi-info-circle" viewBox="0 0 16 16">
+											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+											<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+										</svg>
+									</span>
+									<input asp-for="Password" type="password" id="passwordSign" class="form-control inputCustomize">
+									<span asp-validation-for="Password" class="text-danger"></span>
+								</div>
+
+								<div>
+									<label asp-for="ConfirmPassword" class="form-label fw-bold">Confirm Password</label>
+									<input asp-for="ConfirmPassword" id="ConfirmPassword" class="form-control inputCustomize">
+									<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="d-flex justify-content-center">
+							<div class="col-8">
+								<div>
+									<p class="policyTextSignUp">By signing up, you agree to our <span class="highlighted">Terms</span>, <span class="highlighted">Privacy Policy</span> and <span class="highlighted">Cookies Policy</span>.</p>
+								</div>
+								<button type="submit" id="submitSignUpForm" class="btn btn-light w-100 loginBTN">Sign Up</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer border-0">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>

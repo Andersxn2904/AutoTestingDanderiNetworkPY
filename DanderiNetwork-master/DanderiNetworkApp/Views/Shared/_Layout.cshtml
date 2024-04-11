@@ -1,0 +1,247 @@
+﻿@using DanderiNetwork.Core.Application.ViewModels.User
+@using DanderiNetwork.Core.Application.Dtos.User
+@using DanderiNetwork.Core.Application.Helpers;
+@inject IHttpContextAccessor httpContext;
+@using DanderiNetwork.Core.Application.ViewModels.Following;
+@{
+	UserViewModel User = httpContext.HttpContext.Session.Get<UserViewModel>("user");
+
+	string viewContextCon = ViewContext.RouteData.Values["controller"].ToString();
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - DanderiNetworkApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/DanderiNetworkApp.styles.css" asp-append-version="true" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body data-bs-theme="dark" class="mb-0">
+
+	<div class="container-fluid">
+		<div class="row">
+
+			@if (User != null)
+			{
+				<div class="col-2 vh-100">
+
+					<div class="d-flex flex-column col-auto flex-shrink-0 text-white vh-100 menu-fixed">
+
+						<div class="d-flex align-items-center justify-content-center mt-3 mb-5">
+
+							<a asp-controller="Home" asp-action="Index" class="d-inline-grid justify-content-center text-decoration-none text-white">
+								<div class="d-flex align-items-center justify-content-center">
+									<img src="/images/app/Logo2.png" class="logoimg" alt="logo">
+								</div>
+								<p class="fs-5 mt-1 text-center highlighted fw-bold">Danderi Network</p>
+							</a>
+
+						</div>
+
+						<div class="flex-grow-1">
+							<ul class="nav nav-pills flex-column fs-6">
+								<li class="nav-item mt-4 navitems">
+									<a asp-controller="Home" asp-action="Index" class="nav-link text-white d-flex gap-2 align-items-center">
+										<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-door-fill ms-4 me-2" viewBox="0 0 16 16">
+											<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+										</svg>
+										<p class="mb-0">Home</p>
+									</a>
+								</li>
+								<li class="nav-item mt-4 navitems">
+									<a asp-controller="Friend" asp-action="Index" id="FriendView" class="nav-link text-white d-flex gap-2 align-items-center">
+										<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people-fill ms-4 me-2" viewBox="0 0 16 16">
+											<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+										</svg>
+										<p class="mb-0">Friends</p>
+									</a>
+								</li>
+								<li class="nav-item mt-4 navitems">
+									<a asp-controller="User" asp-action="Profile" id="profile"class="nav-link text-white d-flex gap-2 align-items-center">
+										<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill ms-4 me-2" viewBox="0 0 16 16">
+											<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+										</svg>
+										<p class="mb-0">Profile</p>
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="dropdown">
+							<a href="#" class="d-flex align-items-center text-white text-decoration-none " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+								<div class="me-2">
+									<img src="@User.ImageURL" alt="" width="32" height="32" class="rounded-circle object-fit-cover">
+								</div>
+								<div>
+									<strong>@User.Name @User.LastName</strong>
+									<p class="mb-0 highlighted">@@@User.Username</p>
+								</div>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots ms-2" viewBox="0 0 16 16">
+									<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+								</svg>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-dark text-small" aria-labelledby="dropdownUser1">
+								<li><a class="dropdown-item text-white" href="#">Settings</a></li>
+								<li><a class="dropdown-item text-white" href="#">Profile</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item text-danger" asp-controller="User" id="logout"asp-action="LogOut">Sign out</a></li>
+							</ul>
+						</div>
+
+					</div>
+
+				</div>
+			}
+
+			<div class="col-7 container mb-5">
+
+				<main role="main" class="mt-5 main-content">
+					<div class="mb-3">
+						@RenderBody()
+					</div>
+				</main>
+
+			</div>
+
+			<footer class="footer mt-auto py-3 text-muted">
+				<div class="container flex-wrap d-flex justify-content-center align-items-center">
+					<ul class="nav gap-4 justify-content-center list-unstyled d-flex policyTextSignUp">
+						<li>About</li>
+						<li>Blog</li>
+						<li>Jobs</li>
+						<li>Help</li>
+						<li>Privacy</li>
+						<li>Terms</li>
+						<li>Locations</li>
+						<li>English</li>
+						<li>&copy; @DateTime.Now.Year - DanderiNetwork Corp.</li>
+					</ul>
+				</div>
+			</footer>
+
+			<div class="@(User == null ? "" : "col-3")">
+
+				@if (viewContextCon == "Friend")
+				{
+					<div class="container mt-5">
+
+						<div class="d-flex justify-content-start col-8">
+							<a href="#" id="AddFriendBtn"class="btn newFriend text-decoration-none d-flex gap-3 rounded-5" data-bs-toggle="modal" data-bs-target="#addFriendModal">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0ACE8C" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+									<path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+									<path d="M2 13c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+								</svg>
+								<div class="highlighted">Add friend</div>
+							</a>
+						</div>
+
+						<!-- Modals -->
+						<!-- Modal - Add Friend -->
+
+						<div class="modal fade" id="addFriendModal" tabindex="-1" aria-labelledby="modal-tittle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered ">
+								<div class="modal-content loginCard modalReset">
+									<div class="modal-header border-0">
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<h1 class="modal-title w-100 text-center fs-5 highlighted fw-bold mb-3" id="modal-tittle">New friend</h1>
+										<div class="d-flex justify-content-center">
+											<p class="policyTextSignUp col-8 text-center">
+												Enter the username of the person you want to add as a friend.
+											</p>
+										</div>
+										<form asp-controller="Friend" asp-action="Follow" method="post">
+											<div class="mb-4 d-flex justify-content-center">
+												<div class="col-8">
+													<label for="username" class="form-label fw-bold">Username</label>
+													<input type="text" class="form-control inputCustomize" for="username" id="username" name="username">
+													<span class="text-danger"></span>
+												</div>
+											</div>
+
+											<div class="d-flex justify-content-center">
+												<div class="col-8">
+													<button type="submit" class="btn btn-light w-100 loginBTN">Add</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer border-0">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<h4 class="mt-3">All friends</h4>
+
+						@if (ViewBag.AmoAFiguereo != null)
+						{
+
+							<div class="d-flex justify-content-start">
+								<div class="col-11">
+									<div class="list-group rounded-5">
+
+										@foreach (FollowingViewModel user in ViewBag.AmoAFiguereo)
+										{
+											<div class="list-group-item friendsCard d-flex gap-3 py-3" aria-current="true">
+
+												<img src="@user.ImageURL" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0 object-fit-cover">
+												<div class="d-flex gap-2 w-100 justify-content-between">
+													<div class="col-12">
+														<div class="col-12 d-flex justify-content-between">
+															<div class="col-11">
+																<p class="col-11 mb-0 text-white">@user.NameUserFollowed @user.LastNameUserFollowed</p>
+															</div>
+															<div class="col-1 d-flex justify-content-end">
+																<div class="dropdown">
+
+																	<a href="#" class="d-flex align-items-center text-white text-decoration-none " id="dropdownOptions" data-bs-toggle="dropdown" aria-expanded="false">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+																			<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
+																		</svg>
+																	</a>
+
+																	<ul class="dropdown-menu dropdown-menu-dark text-small rounded-5 dropdownOption" aria-labelledby="dropdownOptions">
+																		<li>
+																			<a class="dropdown-item text-danger small d-flex justify-content-center align-items-center" asp-action="UnFollow" asp-route-id="@user.ID" asp-controller="Friend">
+																				Delete
+																			</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+
+														</div>
+														<p class="mb-0 text-muted">@@@user.UsernameUserFollowed</p>
+													</div>
+												</div>
+											</div>
+										}
+									</div>
+								</div>
+							</div>
+
+						}
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

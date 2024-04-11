@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reporte</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        background-color: #f9fafb;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .container {
+        background-color: #fff;
+        width: 80%;
+        margin: 0 auto;
+        min-height: 80%;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+      .tittle,
+      .results-tittle {
+        text-align: center;
+      }
+      .description {
+        text-align: end;
+        margin-right: 30px;
+      }
+
+      #results-table, .summary-container {
+        width: 80%;
+      }
+
+      #results-table {
+        border-collapse: collapse;
+      }
+      
+      .table-container, .summary {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+      }
+
+      th,
+      td {
+        padding: 15px;
+      }
+
+      tr {
+        border-bottom: 1px solid #f0f0f079;
+      }
+
+      #results-table-head {
+        height: 40px;
+        border-radius: 10px;
+      }
+
+      #results-table-head th {
+        background-color: #130966;
+        color: rgb(255, 255, 255);
+      }
+
+      #hide_all_details, #show_all_details {
+        cursor: pointer;
+        border: none;
+        padding: 10px 40px;
+        border-radius: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      #hide_all_details:hover, #show_all_details:hover {
+        background-color: #dfdfdf;
+        transition: ease-in .1s;
+      }
+
+      .collapse {
+        margin-top: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="tittle">Reporte</h1>
+      <h2 class="description">2024-04-10 22:31:23.814690</h2>
+      <p class="description">Santo Domingo Este</p>
+      <p class="description">Python Test by selenium</p>
+      <h2 class="results-tittle">Summary</h2>
+      <div class="summary">
+        <div class="summary-container"> 
+            <div class="summary__data">
+              <div class="additional-summary prefix"></div>
+              <p class="filter">(Un)check the boxes to filter the results.</p>
+              <div class="summary__reload">
+              </div>
+              <div class="summary__spacer"></div>
+              <div class="controls">
+                <div class="filters">
+                  <input
+                    checked="true"
+                    class="filter"
+                    name="filter_checkbox"
+                    type="checkbox"
+                    data-test-result="failed"
+                    disabled
+                  />
+                  <span class="failed">0 Failed,</span>
+                  <input
+                    checked="true"
+                    class="filter"
+                    name="filter_checkbox"
+                    type="checkbox"
+                    data-test-result="passed"
+                    disabled
+                  />
+                  <span class="passed">3 Passed,</span>               
+                  <input
+                    checked="true"
+                    class="filter"
+                    name="filter_checkbox"
+                    type="checkbox"
+                    data-test-result="error"
+                    disabled
+                  />
+                  <span class="error">0 Errors</span>
+                </div>
+                <div class="collapse">
+                  <button id="show_all_details">Show all details</button
+                  >&nbsp;/&nbsp;<button id="hide_all_details">
+                    Hide all details
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="additional-summary summary"></div>
+            <div class="additional-summary postfix"></div>
+        </div class="summary-container"> 
+      </div>
+      <h2 class="results-tittle">Results List</h2>
+      <div class="table-container">
+        <table id="results-table">
+          <thead id="results-table-head">
+            <tr>
+              <th class="sortable" data-column-type="result">Results</th>
+              
+              
+              
+            </tr>
+          </thead>
+          <tbody class="results-table-row">
+            
+            <tr>
+                
+                    <td>Application started sucessfully 2024-04-10 22:30:38.986928 </td>
+                    
+                
+              
+            </tr>
+            
+            <tr>
+                
+                    <td>Login user sucessfully 2024-04-10 22:31:09.900656 </td>
+                    
+                
+              
+            </tr>
+            
+            <tr>
+                
+                    <td>step add comment 2024-04-10 22:31:22.831317 </td>
+                    
+                
+              
+            </tr>
+            
+          
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
